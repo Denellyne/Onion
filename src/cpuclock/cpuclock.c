@@ -111,11 +111,16 @@ int main(int argc, char *argv[])
     }
 
     int fd_mem = open("/dev/mem", O_RDWR);
+    if (fd_mem < 0) {
+        puts("Unable to open /dev/mem");
+        return 1;
+    }
     pll_map = mmap(0, PLL_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd_mem, BASE_REG_MPLL_PA);
 
     int clock = 0;
     if (argc == 1) {
         print_clock();
+        close(fd_mem);
         return 0;
     }
     if (argc == 2)

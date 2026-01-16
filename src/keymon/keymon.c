@@ -862,11 +862,16 @@ int main(void)
                         // The entire Konami code was entered!
                         FILE *file =
                             fopen("/mnt/SDCARD/.tmp_update/cmd_to_run.sh", "w");
-                        fputs("cd /mnt/SDCARD/.tmp_update/bin; ./easter", file);
-                        fclose(file);
+                        if (file != NULL) {
+                            fputs("cd /mnt/SDCARD/.tmp_update/bin; ./easter", file);
+                            fclose(file);
 
-                        konamiCodeIndex = 0;
-                        kill_mainUI();
+                            konamiCodeIndex = 0;
+                            kill_mainUI();
+                        }
+                        else {
+                            print_debug("Unable to 0pen file for the konami code\n");
+                        }
                     }
                 }
                 else {

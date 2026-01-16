@@ -95,8 +95,10 @@ void file_readLastLine(const char *filename, char *out_str)
         fseek(fd, 0L, SEEK_SET);
 
         int max_len = size < 255 ? size + 1 : 255;
-        if (max_len <= 1)
+        if (max_len <= 1) {
+            fclose(fd);
             return;
+        }
 
         // get the last line
         fseek(fd, -max_len, SEEK_END);
@@ -275,6 +277,10 @@ void file_changeKeyValue(const char *file_path, const char *key,
     cp = fopen("temp", "w+");
     if (fp == NULL)
         exit(EXIT_FAILURE);
+    if (cp == NULL) {
+        fclose(fp);
+        exit(EXIT_FAILURE);
+    }
 
     int key_len = strlen(key);
     int line_idx = 0, line_len;

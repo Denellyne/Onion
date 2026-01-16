@@ -15,6 +15,10 @@ int main(int argc, char *argv[])
     int key = atoi(argv[1]);
 
     FILE *kbd = fopen("/dev/input/event0", "r");
+    if (kbd == NULL) {
+        printf("Unable to opne /dev/input/event0\n");
+        return EXIT_FAILURE;
+    }
 
     char key_map[KEY_MAX / 8 + 1];
     memset(key_map, 0, sizeof(key_map));
@@ -26,6 +30,7 @@ int main(int argc, char *argv[])
     int keyb = key_map[key / 8];
     //  Put a one in the same column as our key state will be in;
     int mask = 1 << (key % 8);
+    fclose(kbd);
 
     return !(keyb & mask); //  Returns true if pressed otherwise false
 }

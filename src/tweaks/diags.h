@@ -68,6 +68,7 @@ void diags_getEntries(void)
                     scripts = realloc(scripts, diags_numScripts * sizeof(diagScripts));
                     if (scripts == NULL) {
                         printf("Memory allocation failed...\n");
+                        free(path);
                         return;
                     }
                     scripts[diags_numScripts - 1] = entry;

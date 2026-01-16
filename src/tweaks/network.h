@@ -144,6 +144,11 @@ void network_getSmbShares()
 
                 numShares++;
                 _network_shares = (Share *)realloc(_network_shares, numShares * sizeof(Share));
+                if (_network_shares == NULL) {
+                    printf("Unable to realloc size of network shares.\n");
+                    fclose(file);
+                    return;
+                }
 
                 bool add_exclamation = false;
                 if (strncmp("__", shareName, 2) == 0) {

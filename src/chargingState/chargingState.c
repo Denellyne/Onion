@@ -133,6 +133,10 @@ int main(void)
 
     // Prepare for Poll button input
     input_fd = open("/dev/input/event0", O_RDONLY);
+    if (input_fd < 0) {
+        print_debug("Unable to open /dev/input/event0\n");
+        return EXIT_FAILURE;
+    }
     memset(&fds, 0, sizeof(fds));
     fds[0].fd = input_fd;
     fds[0].events = POLLIN;
@@ -264,6 +268,7 @@ int main(void)
 
     // restore CPU performance mode
     system_powersave_off();
+    fclose(input_fd);
 
     return EXIT_SUCCESS;
 }

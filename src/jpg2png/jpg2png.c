@@ -90,6 +90,7 @@ int main(int argc, char *argv[])
     ss = ALIGN4K(sw * sh * 4);
     if ((!sw) || (!sh) || (!ss) || (jpeg.out_color_components != 3)) {
         fprintf(stderr, "jpg format error\n");
+        fclose(fp);
         goto error;
     }
 

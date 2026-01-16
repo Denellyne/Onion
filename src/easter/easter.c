@@ -65,6 +65,10 @@ SDL_Surface *theme_textboxSurface_High_Memory(const char *message,
 void logMessage(char *Message)
 {
     FILE *file = fopen("/mnt/SDCARD/log_Easter_Message.txt", "a");
+    if (file == NULL) {
+        printf("Unable to open log easter message\n");
+        return;
+    }
 
     char valLog[MAXCHARACTERSARRAY];
     sprintf(valLog, "%s %s", Message, "\n");
