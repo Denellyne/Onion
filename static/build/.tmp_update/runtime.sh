@@ -6,7 +6,6 @@ export PATH="$sysdir/bin:$PATH"
 
 logfile=$(basename "$0" .sh)
 . $sysdir/script/log.sh
-. $sysdir/script/handle_zip_roms.sh
 
 MODEL_MM=283
 MODEL_MMP=354
@@ -318,12 +317,6 @@ launch_game() {
         rompath=$(echo "$cmd" | awk '{ st = index($0,"\" \""); print substr($0,st+3,length($0)-st-3)}')
         romext=$(echo "$(basename "$rompath")" | awk -F. '{print tolower($NF)}')
 
-        if [ "$romext" == "zip" ] || [ "$romext" == "7z" ];then
-            handle_compressed_roms "$rompath"
-            rompath="$absolute_rom_path"
-        fi
-       
-        
         if echo "$rompath" | grep -q ":"; then
             launch_script=$(echo "$rompath" | awk '{split($0,a,":"); print a[1]}')
             rompath=$(echo "$rompath" | awk '{split($0,a,":"); print a[2]}')

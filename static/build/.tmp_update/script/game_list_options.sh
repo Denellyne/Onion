@@ -193,15 +193,6 @@ main() {
 
     if [ $current_tab -eq $TAB_GAMES ] || [ $current_tab -eq $TAB_EXPERT ]; then
         add_menu_option refresh_roms "Refresh list" "Refresh the rom list"
-
-        fz_file="$(realpath "$(dirname "$rompath")")"/.fz
-        extract_roms_state=""
-        if [ -f "$fz_file" ];then
-          extract_roms_state="(On)"
-        else
-          extract_roms_state="(Off)"
-        fi
-        add_menu_option extract_roms "Fast compressed roms: $extract_roms_state" "Extracts zip roms for faster loads while in GameSwitcher"
     fi
 
     add_script_files "$globalscriptdir"
