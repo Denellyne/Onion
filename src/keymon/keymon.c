@@ -269,8 +269,8 @@ void suspend_exec(int timeout)
     // suspend
     if (!stay_awake) {
         suspend(0);
-        setVolume(0);
     }
+    setVolume(0);
     rumble(0);
     display_setBrightnessRaw(0);
     display_off();
@@ -561,9 +561,6 @@ int main(void)
                         else {
                             if (settings.disable_standby) {
                                 deepsleep();
-                            }
-                            else if (settings.sleep_timer == 0) {
-                                suspend_exec(SHUTDOWN_MIN * 60000);
                             }
                             else {
                                 turnOffScreen();
